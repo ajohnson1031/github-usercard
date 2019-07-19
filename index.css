@@ -208,7 +208,7 @@ body {
 .card-info {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 95%;
 }
 
 p.button {
@@ -228,4 +228,25 @@ p.button {
 
 p.button:hover {
   background-color: blue;
+}
+
+.more-info h4 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 25px 0;
+}
+
+.more-info p {
+  margin-bottom: 25px;
+}
+
+.more-info {
+  height: 0;
+  overflow: hidden;
+  transition-duration: 0.2s;
+}
+
+.open {
+  height: 275px;
+  overflow: auto;
 }

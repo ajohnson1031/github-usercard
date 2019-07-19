@@ -16,6 +16,7 @@ const followersArray = [
 const getProfile = axios
   .get("https://api.github.com/users/ajohnson1031")
   .then(response => {
+    console.log(response);
     cards.appendChild(createCard(response));
   })
   .then(
@@ -84,7 +85,15 @@ const createCard = userObject => {
     cardFollowingP = document.createElement("p"),
     cardBioP = document.createElement("p"),
     cardProfileLink = document.createElement("a"),
-    cardExpandButton = document.createElement("p");
+    cardExpandButton = document.createElement("p"),
+    cardExtraContainer = document.createElement("div"),
+    cardMoreInfo = document.createElement("div"),
+    cardMoreInfoHeader = document.createElement("h4"),
+    extraP1 = document.createElement("p"),
+    extraP2 = document.createElement("p"),
+    extraP3 = document.createElement("p"),
+    extraLorem =
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. At sunt distinctio impedit et? Est voluptatibus error minima quaerat odio repellat, non eos harum quia repellendus architecto? Fugiat blanditiis dolores at.";
 
   //Element Classing
   card.classList.add("card");
@@ -92,6 +101,8 @@ const createCard = userObject => {
   cardH3.classList.add("name");
   cardUserP.classList.add("username");
   cardExpandButton.classList.add("button");
+  cardMoreInfo.classList.add("more-info");
+  cardExtraContainer.classList.add("extra-container");
 
   //Element Attribute Setting
   cardImg.setAttribute("src", userObject.data.avatar_url);
@@ -121,11 +132,17 @@ const createCard = userObject => {
 
   cardExpandButton.textContent = "Expand";
 
+  cardMoreInfoHeader.textContent = "More Info";
+  extraP1.textContent = extraP2.textContent = extraP3.textContent = extraLorem;
+
   //Card Expand Button
   cardExpandButton.addEventListener("click", e => {
     e.stopPropagation();
     e.currentTarget.textContent =
       e.currentTarget.textContent === "Expand" ? "Minimize" : "Expand";
+    e.currentTarget.previousElementSibling
+      .querySelector(".more-info")
+      .classList.toggle("open");
   });
 
   //Element Appending
@@ -136,12 +153,20 @@ const createCard = userObject => {
   cardInfo.appendChild(cardFollowersP);
   cardInfo.appendChild(cardFollowingP);
   cardInfo.appendChild(cardBioP);
-  cardInfo.appendChild(cardExpandButton);
 
   cardProfileP.appendChild(cardProfileLink);
 
+  cardMoreInfo.appendChild(cardMoreInfoHeader);
+  cardMoreInfo.appendChild(extraP1);
+  cardMoreInfo.appendChild(extraP2);
+  cardMoreInfo.appendChild(extraP3);
+
+  cardExtraContainer.appendChild(cardInfo);
+  cardExtraContainer.appendChild(cardMoreInfo);
+
   card.appendChild(cardImg);
-  card.appendChild(cardInfo);
+  card.appendChild(cardExtraContainer);
+  card.appendChild(cardExpandButton);
 
   return card;
 };
