@@ -4,11 +4,30 @@
 */
 
 const cards = document.querySelector(".cards");
+
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"
+];
+
 const getProfile = axios
   .get("https://api.github.com/users/ajohnson1031")
   .then(response => {
     cards.appendChild(createCard(response));
   })
+  .then(
+    followersArray.map(elem => {
+      axios
+        .get(`https://api.github.com/users/${elem}`)
+        .then(response => {
+          cards.appendChild(createCard(response));
+        })
+        .catch(err => console.log(`Error: ${err}`));
+    })
+  )
   .catch(err => console.log(`Error: ${err}`));
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -32,22 +51,6 @@ const getProfile = axios
           user, and adding that card to the DOM.
 */
 
-const followersArray = [
-  "tetondan",
-  "dustinmyers",
-  "justsml",
-  "luishrd",
-  "bigknell"
-];
-
-followersArray.map(elem => {
-  axios
-    .get(`https://api.github.com/users/${elem}`)
-    .then(response => {
-      cards.appendChild(createCard(response));
-    })
-    .catch(err => console.log(`Error: ${err}`));
-});
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
@@ -94,6 +97,7 @@ const createCard = userObject => {
   cardProfileLink.setAttribute("target", "_blank");
 
   //Element TextContent Setting
+
   cardH3.textContent = null ? "Name Not Provided" : userObject.data.name;
   cardUserP.textContent = userObject.data.login;
   cardLocationP.textContent =
@@ -103,6 +107,14 @@ const createCard = userObject => {
   cardProfileP.textContent = `Profile: `;
   cardFollowersP.textContent = `Followers: ${userObject.data.followers}`;
   cardFollowingP.textContent = `Following: ${userObject.data.following}`;
+
+  const bio =
+    userObject.data.bio === null
+      ? "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus rerum porro voluptates? Libero dolore error, cumque laudantium aperiam magnam quis, assumenda at corporis enim accusamus, similique deserunt ipsum impedit autem."
+      : userObject.data.bio;
+
+  cardBioP.textContent = `Bio: ${bio}`;
+
   cardProfileLink.textContent = cardProfileLink;
 
   //Element Appending
