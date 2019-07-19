@@ -83,13 +83,15 @@ const createCard = userObject => {
     cardFollowersP = document.createElement("p"),
     cardFollowingP = document.createElement("p"),
     cardBioP = document.createElement("p"),
-    cardProfileLink = document.createElement("a");
+    cardProfileLink = document.createElement("a"),
+    cardExpandButton = document.createElement("p");
 
   //Element Classing
   card.classList.add("card");
   cardInfo.classList.add("card-info");
   cardH3.classList.add("name");
   cardUserP.classList.add("username");
+  cardExpandButton.classList.add("button");
 
   //Element Attribute Setting
   cardImg.setAttribute("src", userObject.data.avatar_url);
@@ -117,6 +119,15 @@ const createCard = userObject => {
 
   cardProfileLink.textContent = cardProfileLink;
 
+  cardExpandButton.textContent = "Expand";
+
+  //Card Expand Button
+  cardExpandButton.addEventListener("click", e => {
+    e.stopPropagation();
+    e.currentTarget.textContent =
+      e.currentTarget.textContent === "Expand" ? "Minimize" : "Expand";
+  });
+
   //Element Appending
   cardInfo.appendChild(cardH3);
   cardInfo.appendChild(cardUserP);
@@ -125,6 +136,7 @@ const createCard = userObject => {
   cardInfo.appendChild(cardFollowersP);
   cardInfo.appendChild(cardFollowingP);
   cardInfo.appendChild(cardBioP);
+  cardInfo.appendChild(cardExpandButton);
 
   cardProfileP.appendChild(cardProfileLink);
 
