@@ -13,6 +13,14 @@ const followersArray = [
   "bigknell"
 ];
 
+//Adding Graph
+const header = document.querySelector(".header");
+const calendar = document.createElement("calendar");
+calendar.classList.add("calendar");
+header.after(calendar);
+
+new GitHubCalendar(".calendar", "ajohnson1031");
+
 const getProfile = axios
   .get("https://api.github.com/users/ajohnson1031")
   .then(response => {

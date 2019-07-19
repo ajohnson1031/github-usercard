@@ -250,3 +250,19 @@ p.button:hover {
   height: 275px;
   overflow: auto;
 }
+
+svg {
+  transform: scale(0.85);
+  position: relative;
+  left: -40px;
+}
+
+.contrib-footer {
+  margin-top: 15px;
+}
+
+.calendar {
+  width: 740px;
+  background-color: #fff;
+  margin-bottom: 25px;
+}
