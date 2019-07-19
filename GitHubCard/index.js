@@ -96,7 +96,10 @@ const createCard = userObject => {
   //Element TextContent Setting
   cardH3.textContent = null ? "Name Not Provided" : userObject.data.name;
   cardUserP.textContent = userObject.data.login;
-  cardLocationP.textContent = `Location: ${userObject.data.location}`;
+  cardLocationP.textContent =
+    userObject.data.location !== null
+      ? `Location: ${userObject.data.location}`
+      : "Location Not Provided";
   cardProfileP.textContent = `Profile: `;
   cardFollowersP.textContent = `Followers: ${userObject.data.followers}`;
   cardFollowingP.textContent = `Following: ${userObject.data.following}`;
