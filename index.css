@@ -269,5 +269,5 @@ svg {
 }
 
 .extra-container {
-  width: 65%;
+  width: 65% !important;
 }
