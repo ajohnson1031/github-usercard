@@ -224,6 +224,7 @@ p.button {
   cursor: pointer;
   user-select: none;
   transition-duration: 0.2s;
+  clear: both;
 }
 
 p.button:hover {
@@ -266,4 +267,8 @@ svg {
   background-color: #fff;
   margin-bottom: 25px;
   box-shadow: 0 1px 6px -2px #000;
+}
+
+.extra-container {
+  width: 65%;
 }
