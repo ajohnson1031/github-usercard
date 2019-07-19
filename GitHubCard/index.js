@@ -3,6 +3,14 @@
            https://api.github.com/users/<your name>
 */
 
+const cards = document.querySelector(".cards");
+const getProfile = axios
+  .get("https://api.github.com/users/ajohnson1031")
+  .then(response => {
+    cards.appendChild(createCard(response));
+  })
+  .catch(err => console.log(`Error: ${err}`));
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -24,8 +32,22 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"
+];
 
+followersArray.map(elem => {
+  axios
+    .get(`https://api.github.com/users/${elem}`)
+    .then(response => {
+      cards.appendChild(createCard(response));
+    })
+    .catch(err => console.log(`Error: ${err}`));
+});
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
@@ -45,6 +67,57 @@ const followersArray = [];
 </div>
 
 */
+
+const createCard = userObject => {
+  //Creation of Elements
+  const card = document.createElement("div"),
+    cardImg = document.createElement("img"),
+    cardInfo = document.createElement("div"),
+    cardH3 = document.createElement("h3"),
+    cardUserP = document.createElement("p"),
+    cardLocationP = document.createElement("p"),
+    cardProfileP = document.createElement("p"),
+    cardFollowersP = document.createElement("p"),
+    cardFollowingP = document.createElement("p"),
+    cardBioP = document.createElement("p"),
+    cardProfileLink = document.createElement("a");
+
+  //Element Classing
+  card.classList.add("card");
+  cardInfo.classList.add("card-info");
+  cardH3.classList.add("name");
+  cardUserP.classList.add("username");
+
+  //Element Attribute Setting
+  cardImg.setAttribute("src", userObject.data.avatar_url);
+  cardProfileLink.setAttribute("href", userObject.data.html_url);
+  cardProfileLink.setAttribute("target", "_blank");
+
+  //Element TextContent Setting
+  cardH3.textContent = null ? "Name Not Provided" : userObject.data.name;
+  cardUserP.textContent = userObject.data.login;
+  cardLocationP.textContent = `Location: ${userObject.data.location}`;
+  cardProfileP.textContent = `Profile: `;
+  cardFollowersP.textContent = `Followers: ${userObject.data.followers}`;
+  cardFollowingP.textContent = `Following: ${userObject.data.following}`;
+  cardProfileLink.textContent = cardProfileLink;
+
+  //Element Appending
+  cardInfo.appendChild(cardH3);
+  cardInfo.appendChild(cardUserP);
+  cardInfo.appendChild(cardLocationP);
+  cardInfo.appendChild(cardProfileP);
+  cardInfo.appendChild(cardFollowersP);
+  cardInfo.appendChild(cardFollowingP);
+  cardInfo.appendChild(cardBioP);
+
+  cardProfileP.appendChild(cardProfileLink);
+
+  card.appendChild(cardImg);
+  card.appendChild(cardInfo);
+
+  return card;
+};
 
 /* List of LS Instructors Github username's: 
   tetondan
