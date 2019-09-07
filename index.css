@@ -3,55 +3,137 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
 }
 body {
-	line-height: 1;
+  line-height: 1;
 }
-ol, ul {
-	list-style: none;
+ol,
+ul {
+  list-style: none;
 }
-blockquote, q {
-	quotes: none;
+blockquote,
+q {
+  quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
-
 
 /* Reset above, our CSS below */
 
-html, body, * {
-  font-family: 'Roboto', sans-serif;
+html,
+body,
+* {
+  font-family: "Roboto", sans-serif;
   box-sizing: border-box;
 }
 
@@ -97,7 +179,7 @@ body {
   display: flex;
   border-radius: 5px;
   box-shadow: 0 1px 6px -2px #000;
-  background-color: #FFF;
+  background-color: #fff;
   margin-bottom: 30px;
 }
 
@@ -123,5 +205,70 @@ body {
   margin: 3px 0 10px;
 }
 
+.card-info {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+}
 
+p.button {
+  z-index: 1;
+  align-self: flex-end;
+  padding: 5px 10px;
+  margin-top: 15px;
+  border-radius: 4px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: dodgerblue;
+  cursor: pointer;
+  user-select: none;
+  transition-duration: 0.2s;
+  clear: both;
+}
 
+p.button:hover {
+  background-color: blue;
+}
+
+.more-info h4 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 25px 0;
+}
+
+.more-info p {
+  margin-bottom: 25px;
+}
+
+.more-info {
+  height: 0;
+  overflow: hidden;
+  transition-duration: 0.2s;
+}
+
+.open {
+  height: 275px;
+  overflow: auto;
+}
+
+svg {
+  transform: scale(0.85);
+  position: relative;
+  left: -40px;
+}
+
+.contrib-footer {
+  margin-top: 15px;
+}
+
+.calendar {
+  width: 740px;
+  background-color: #fff;
+  margin-bottom: 25px;
+  box-shadow: 0 1px 6px -2px #000;
+}
+
+.extra-container {
+  width: 65%;
+}

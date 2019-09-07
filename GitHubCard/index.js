@@ -3,6 +3,42 @@
            https://api.github.com/users/<your name>
 */
 
+const cards = document.querySelector(".cards");
+
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"
+];
+
+//Adding Graph
+const header = document.querySelector(".header");
+const calendar = document.createElement("calendar");
+calendar.classList.add("calendar");
+header.after(calendar);
+
+new GitHubCalendar(".calendar", "ajohnson1031");
+
+const getProfile = axios
+  .get("https://api.github.com/users/ajohnson1031")
+  .then(response => {
+    console.log(response);
+    cards.appendChild(createCard(response));
+  })
+  .then(
+    followersArray.map(elem => {
+      axios
+        .get(`https://api.github.com/users/${elem}`)
+        .then(response => {
+          cards.appendChild(createCard(response));
+        })
+        .catch(err => console.log(`Error: ${err}`));
+    })
+  )
+  .catch(err => console.log(`Error: ${err}`));
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -24,8 +60,6 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
-
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
@@ -45,6 +79,105 @@ const followersArray = [];
 </div>
 
 */
+
+const createCard = userObject => {
+  //Creation of Elements
+  const card = document.createElement("div"),
+    cardImg = document.createElement("img"),
+    cardInfo = document.createElement("div"),
+    cardH3 = document.createElement("h3"),
+    cardUserP = document.createElement("p"),
+    cardLocationP = document.createElement("p"),
+    cardProfileP = document.createElement("p"),
+    cardFollowersP = document.createElement("p"),
+    cardFollowingP = document.createElement("p"),
+    cardBioP = document.createElement("p"),
+    cardProfileLink = document.createElement("a"),
+    cardExpandButton = document.createElement("p"),
+    cardExtraContainer = document.createElement("div"),
+    cardMoreInfo = document.createElement("div"),
+    cardMoreInfoHeader = document.createElement("h4"),
+    extraP1 = document.createElement("p"),
+    extraP2 = document.createElement("p"),
+    extraP3 = document.createElement("p"),
+    extraLorem =
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. At sunt distinctio impedit et? Est voluptatibus error minima quaerat odio repellat, non eos harum quia repellendus architecto? Fugiat blanditiis dolores at.";
+
+  //Element Classing
+  card.classList.add("card");
+  cardInfo.classList.add("card-info");
+  cardH3.classList.add("name");
+  cardUserP.classList.add("username");
+  cardExpandButton.classList.add("button");
+  cardMoreInfo.classList.add("more-info");
+  cardExtraContainer.classList.add("extra-container");
+
+  //Element Attribute Setting
+  cardImg.setAttribute("src", userObject.data.avatar_url);
+  cardProfileLink.setAttribute("href", userObject.data.html_url);
+  cardProfileLink.setAttribute("target", "_blank");
+
+  //Element TextContent Setting
+
+  cardH3.textContent = null ? "Name Not Provided" : userObject.data.name;
+  cardUserP.textContent = userObject.data.login;
+  cardLocationP.textContent =
+    userObject.data.location !== null
+      ? `Location: ${userObject.data.location}`
+      : "Location Not Provided";
+  cardProfileP.textContent = `Profile: `;
+  cardFollowersP.textContent = `Followers: ${userObject.data.followers}`;
+  cardFollowingP.textContent = `Following: ${userObject.data.following}`;
+
+  const bio =
+    userObject.data.bio === null
+      ? "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus rerum porro voluptates? Libero dolore error, cumque laudantium aperiam magnam quis, assumenda at corporis enim accusamus, similique deserunt ipsum impedit autem."
+      : userObject.data.bio;
+
+  cardBioP.textContent = `Bio: ${bio}`;
+
+  cardProfileLink.textContent = cardProfileLink;
+
+  cardExpandButton.textContent = "Expand";
+
+  cardMoreInfoHeader.textContent = "More Info";
+  extraP1.textContent = extraP2.textContent = extraP3.textContent = extraLorem;
+
+  //Card Expand Button
+  cardExpandButton.addEventListener("click", e => {
+    e.stopPropagation();
+    e.currentTarget.textContent =
+      e.currentTarget.textContent === "Expand" ? "Minimize" : "Expand";
+    e.currentTarget.previousElementSibling
+      .querySelector(".more-info")
+      .classList.toggle("open");
+  });
+
+  //Element Appending
+  cardInfo.appendChild(cardH3);
+  cardInfo.appendChild(cardUserP);
+  cardInfo.appendChild(cardLocationP);
+  cardInfo.appendChild(cardProfileP);
+  cardInfo.appendChild(cardFollowersP);
+  cardInfo.appendChild(cardFollowingP);
+  cardInfo.appendChild(cardBioP);
+
+  cardProfileP.appendChild(cardProfileLink);
+
+  cardMoreInfo.appendChild(cardMoreInfoHeader);
+  cardMoreInfo.appendChild(extraP1);
+  cardMoreInfo.appendChild(extraP2);
+  cardMoreInfo.appendChild(extraP3);
+
+  cardExtraContainer.appendChild(cardInfo);
+  cardExtraContainer.appendChild(cardMoreInfo);
+
+  card.appendChild(cardImg);
+  card.appendChild(cardExtraContainer);
+  card.appendChild(cardExpandButton);
+
+  return card;
+};
 
 /* List of LS Instructors Github username's: 
   tetondan
